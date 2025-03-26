@@ -1,0 +1,32 @@
+services:
+  # Serviço do MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # Senha do root (altere!)
+      MYSQL_DATABASE: produtos_db        # Nome do banco de dados
+      MYSQL_USER: usuario                # Usuário personalizado (opcional)
+      MYSQL_PASSWORD: senha123           # Senha do usuário (opcional)
+    ports:
+      - "3306:3306"  # Porta local:porta_container
+    volumes:
+      - mysql_data:/var/lib/mysql  # Persistência dos dados
+
+  # Serviço da API Spring Boot
+  api:
+    build: .  # Usa o Dockerfile para construir a imagem
+    container_name: api_spring
+    depends_on:
+      - mysql  # Espera o MySQL iniciar primeiro
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/produtos_db?useSSL=false
+      SPRING_DATASOURCE_USERNAME: usuario
+      SPRING_DATASOURCE_PASSWORD: senha123
+    restart: unless-stopped  # Reinicia automaticamente se falhar
+
+# Volume para persistir dados do MySQL
+volumes:
+  mysql_data:
