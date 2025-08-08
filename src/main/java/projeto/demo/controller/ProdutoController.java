@@ -24,7 +24,6 @@ public class ProdutoController {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-
     @PostMapping
     @Transactional
     @Operation ( summary = "Criar um produto", description = "Cadastra um novo produto no sistema" )
