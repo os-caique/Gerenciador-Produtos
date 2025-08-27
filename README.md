@@ -1,4 +1,4 @@
-dot# 📦 Gerenciador de Produtos - API REST
+# 📦 Gerenciador de Produtos
 
 API backend para gerenciamento de produtos com **Spring Boot, MySQL, JWT e Docker**.
 
